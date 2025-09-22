@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juntos por una eternidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #fff8e1, #ffecb3, #ffd54f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .card {
+            background: linear-gradient(to bottom right, #ffffff, #fffde7);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ffecb3;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #ffd54f, #ffb300, #ffd54f);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #ffecb3;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff6f00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: #ffb300;
+            font-weight: normal;
+            letter-spacing: 3px;
+        }
+        
+        .bouquet-container {
+            position: relative;
+            height: 350px;
+            margin: 30px 0;
+        }
+        
+        .bouquet {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+        }
+        
+        /* Flores mejoradas */
+        .flower {
+            position: absolute;
+            z-index: 5;
+            width: 60px;
+            height: 60px;
+        }
+        
+        .flower-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .petal {
+            position: absolute;
+            background: linear-gradient(to bottom, #ffeb3b, #ffd600);
+            border-radius: 50%;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            transform-origin: center bottom;
+        }
+        
+        .petal-1 { width: 50px; height: 50px; bottom: 5px; left: 5px; transform: rotate(30deg); }
+        .petal-2 { width: 50px; height: 50px; bottom: 5px; right: 5px; transform: rotate(-30deg); }
+        .petal-3 { width: 55px; height: 55px; bottom: 15px; left: -5px; transform: rotate(10deg); }
+        .petal-4 { width: 55px; height: 55px; bottom: 15px; right: -5px; transform: rotate(-10deg); }
+        .petal-5 { width: 45px; height: 45px; bottom: 25px; left: 8px; transform: rotate(20deg); }
+        .petal-6 { width: 45px; height: 45px; bottom: 25px; right: 8px; transform: rotate(-20deg); }
+        .petal-7 { width: 40px; height: 40px; bottom: 35px; left: 10px; transform: rotate(0deg); }
+        
+        .flower-center {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(to bottom, #ffd600, #ffab00);
+            border-radius: 50%;
+            bottom: 30px;
+            left: 18px;
+            z-index: 6;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Tallos y hojas */
+        .stem {
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            background: linear-gradient(to top, #388e3c, #2e7d32);
+            border-radius: 4px;
+            transform-origin: bottom center;
+            z-index: 2;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 25px;
+            height: 20px;
+            background-color: #388e3c;
+            border-radius: 0 50% 50% 0;
+            z-index: 4;
+        }
+        
+        .leaf::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #388e3c;
+            border-radius: 50% 0 0 50%;
+            left: -80%;
+        }
+        
+        /* Posicionamiento de las flores */
+        .flower-1 {
+            top: 40px;
+            left: 40px;
+            transform: scale(0.9);
+        }
+        
+        .flower-1 .stem {
+            height: 120px;
+            transform: rotate(0deg);
+            left: 27px;
+            bottom: -120px;
+        }
+        
+        .flower-1 .leaf {
+            bottom: -40px;
+            left: 5px;
+            transform: rotate(-30deg);
+        }
+        
+        .flower-2 {
+            top: 20px;
+            left: 150px;
+            transform: scale(1.1);
+        }
+        
+        .flower-2 .stem {
+            height: 150px;
+            transform: rotate(-5deg);
+            left: 27px;
+            bottom: -150px;
+        }
+        
+        .flower-2 .leaf {
+            bottom: -50px;
+            left: 5px;
+            transform: rotate(-20deg);
+        }
+        
+        .flower-2 .leaf:nth-child(4) {
+            bottom: -80px;
+            right: 5px;
+            transform: rotate(20deg) scaleX(-1);
+        }
+        
+        .flower-3 {
+            top: 70px;
+            left: 220px;
+            transform: scale(0.8);
+        }
+        
+        .flower-3 .stem {
+            height: 180px;
+            transform: rotate(5deg);
+            left: 27px;
+            bottom: -180px;
+        }
+        
+        .flower-3 .leaf {
+            bottom: -60px;
+            left: 5px;
+            transform: rotate(-15deg);
+        }
+        
+        .flower-4 {
+            top: 140px;
+            left: 60px;
+            transform: scale(1);
+        }
+        
+        .flower-4 .stem {
+            height: 100px;
+            transform: rotate(-3deg);
+            left: 27px;
+            bottom: -100px;
+        }
+        
+        .flower-4 .leaf {
+            bottom: -35px;
+            left: 5px;
+            transform: rotate(-25deg);
+        }
+        
+        .flower-5 {
+            top: 170px;
+            left: 180px;
+            transform: scale(0.9);
+        }
+        
+        .flower-5 .stem {
+            height: 110px;
+            transform: rotate(2deg);
+            left: 27px;
+            bottom: -110px;
+        }
+        
+        .flower-5 .leaf {
+            bottom: -45px;
+            right: 5px;
+            transform: rotate(25deg) scaleX(-1);
+        }
+        
+        /* Cinta decorativa */
+        .ribbon {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 40px;
+            background: linear-gradient(to right, #ff5252, #ff1744);
+            border-radius: 5px;
+            z-index: 10;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ribbon::before, .ribbon::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        
+        .ribbon::before {
+            top: -10px;
+            left: 0;
+            border-width: 10px 0 0 15px;
+            border-color: transparent transparent transparent #d32f2f;
+        }
+        
+        .ribbon::after {
+            top: -10px;
+            right: 0;
+            border-width: 10px 15px 0 0;
+            border-color: #d32f2f transparent transparent transparent;
+        }
+        
+        /* Mensaje especial */
+        .special-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #e65100;
+            line-height: 1.6;
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(255, 235, 59, 0.2);
+            border-radius: 15px;
+            border: 2px solid #ffb300;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .special-message::before, .special-message::after {
+            content: '"';
+            font-size: 3rem;
+            color: #ffb300;
+            position: absolute;
+        }
+        
+        .special-message::before {
+            top: 10px;
+            left: 15px;
+        }
+        
+        .special-message::after {
+            bottom: 10px;
+            right: 15px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #8d6e63;
+            font-size: 1rem;
+        }
+        
+        /* Pétalos cayendo */
+        .falling-petal {
+            position: absolute;
+            background: linear-gradient(to bottom, #ffeb3b, #ffd600);
+            border-radius: 50%;
+            opacity: 0.7;
+            top: -50px;
+            z-index: 1;
+        }
+        
+        /* Corazones flotantes */
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff5252;
+            opacity: 0.7;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>Juntos por una eternidad</h1>
+            <h2>Atte:betolux</h2>
+        </div>
+        
+        <div class="bouquet-container">
+            <div class="bouquet">
+                <!-- Flores -->
+                <div class="flower flower-1">
+                    <div class="flower-inner">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                        <div class="petal petal-6"></div>
+                        <div class="petal petal-7"></div>
+                        <div class="flower-center"></div>
+                    </div>
+                    <div class="leaf"></div>
+                    <div class="stem"></div>
+                </div>
+                
+                <div class="flower flower-2">
+                    <div class="flower-inner">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                        <div class="petal petal-6"></div>
+                        <div class="petal petal-7"></div>
+                        <div class="flower-center"></div>
+                    </div>
+                    <div class="leaf"></div>
+                    <div class="leaf"></div>
+                    <div class="stem"></div>
+                </div>
+                
+                <div class="flower flower-3">
+                    <div class="flower-inner">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                        <div class="petal petal-6"></div>
+                        <div class="petal petal-7"></div>
+                        <div class="flower-center"></div>
+                    </div>
+                    <div class="leaf"></div>
+                    <div class="stem"></div>
+                </div>
+                
+                <div class="flower flower-4">
+                    <div class="flower-inner">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                        <div class="petal petal-6"></div>
+                        <div class="petal petal-7"></div>
+                        <div class="flower-center"></div>
+                    </div>
+                    <div class="leaf"></div>
+                    <div class="stem"></div>
+                </div>
+                
+                <div class="flower flower-5">
+                    <div class="flower-inner">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                        <div class="petal petal-6"></div>
+                        <div class="petal petal-7"></div>
+                        <div class="flower-center"></div>
+                    </div>
+                    <div class="leaf"></div>
+                    <div class="stem"></div>
+                </div>
+                
+                <div class="ribbon"></div>
+            </div>
+        </div>
+        
+        <div class="special-message">
+            Te quiero mucho mi niña hermosa
+        </div>
+        
+        <div class="footer">
+            <p>Eres la luz de mi vida</p>
+        </div>
+    </div>
+
+    <script>
+        // Crear pétalos cayendo
+        function createPetals() {
+            const container = document.body;
+            const petalCount = 25;
+            
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('falling-petal');
+                
+                const size = Math.random() * 20 + 10;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                
+                const left = Math.random() * window.innerWidth;
+                petal.style.left = `${left}px`;
+                
+                const rotation = Math.random() * 360;
+                petal.style.transform = `rotate(${rotation}deg)`;
+                
+                const duration = Math.random() * 5 + 5;
+                const delay = Math.random() * 5;
+                
+                petal.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(petal);
+            }
+        }
+        
+        // Crear corazones flotantes
+        function createHearts() {
+            const container = document.body;
+            const heartCount = 8;
+            const heartSymbols = ['❤️', '💛', '💖'];
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                
+                const left = Math.random() * window.innerWidth;
+                const top = Math.random() * window.innerHeight;
+                const delay = Math.random() * 5;
+                
+                heart.style.left = `${left}px`;
+                heart.style.top = `${top}px`;
+                heart.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Definir la animación de caída
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.7;
+                }
+                80% {
+                    opacity: 0.6;
+                }
+                100% {
+                    transform: translateY(${window.innerHeight}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        window.addEventListener('load', function() {
+            createPetals();
+            createHearts();
+        });
+        
+        window.addEventListener('resize', function() {
+            document.querySelectorAll('.falling-petal').forEach(petal => petal.remove());
+            document.querySelectorAll('.floating-heart').forEach(heart => heart.remove());
+            createPetals();
+            createHearts();
+        });
+    </script>
+</body>
+</html>
